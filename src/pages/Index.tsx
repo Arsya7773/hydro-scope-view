@@ -14,7 +14,7 @@ import { mean, std, variance, min, max, nrmse, bias, rmse, clean } from "@/lib/s
 
 const Index = () => {
   const [overrideRows, setOverrideRows] = useState<{ rows: Row[]; meta: DatasetMeta } | null>(null);
-  const [filter, setFilter] = useState<FilterState>({ year: "all", month: "all", range: [0, 1] });
+  const [filter, setFilter] = useState<FilterState>({ year: "all", month: "all" });
 
   // Helper function to filter and compute stats for any dataset
   const computeDatasetStats = (rows: Row[], currentFilter: FilterState) => {
@@ -26,9 +26,7 @@ const Index = () => {
 
     const n = yearMonthFiltered.length;
     if (!n) return { filtered: [], stats: null };
-    const lo = Math.floor(currentFilter.range[0] * (n - 1));
-    const hi = Math.ceil(currentFilter.range[1] * (n - 1));
-    const filtered = yearMonthFiltered.slice(Math.min(lo, hi), Math.max(lo, hi) + 1);
+    const filtered = yearMonthFiltered;
 
     const p = clean(filtered.map((r) => r.primary));
     const s = clean(filtered.map((r) => (r.secondary ?? NaN) as number));
@@ -116,7 +114,7 @@ const Index = () => {
                       secondaryLabel: rows.some((r) => r.secondary !== undefined) ? "Secondary" : undefined,
                     },
                   });
-                  setFilter({ year: "all", month: "all", range: [0, 1] });
+                  setFilter({ year: "all", month: "all" });
                 }}
               />
             </div>
@@ -129,8 +127,6 @@ const Index = () => {
               rows={[...datasets.windCompare.rows, ...datasets.sst.rows, ...datasets.windEra.rows]}
               value={filter}
               onChange={setFilter}
-              filteredCount={windCompareData.filtered.length + sstData.filtered.length + windEraData.filtered.length}
-              totalCount={datasets.windCompare.rows.length + datasets.sst.rows.length + datasets.windEra.rows.length}
             />
           </div>
 
@@ -218,7 +214,6 @@ const Index = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
                 <TimeSeriesChart rows={windEraData.filtered} unit="m/s" primaryLabel="Wind Speed" secondaryLabel="u10" datasetId="windEra" showVelocity={true} />
-                <ScatterChartCard rows={windEraData.filtered} unit="m/s" xLabel="u10 (Zonal)" yLabel="Wind Speed" />
                 <div className="lg:col-span-2">
                   <HistogramCard rows={windEraData.filtered} unit="m/s" label="Wind Speed" isPaired={false} />
                 </div>

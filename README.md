@@ -4,10 +4,10 @@
 
 **Advanced Client-Side Oceanographic Data Analytics Dashboard**
 
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](#)
-[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](#)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](#)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 > *Project by Team 2 — Data Analysis Method in Oceanography*
 
@@ -59,7 +59,7 @@ Since the application is 100% client-side, setting up the development environmen
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/YourUsername/hydro-scope-view.git](https://github.com/YourUsername/hydro-scope-view.git)
+git clone [https://github.com/Arsya7773/hydro-scope-view.git](https://github.com/Arsya7773/hydro-scope-view.git)
 
 # 2. Navigate into the directory
 cd hydro-scope-view
