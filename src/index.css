@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === OCEAN DASHBOARD DESIGN SYSTEM ===
+   All colors HSL. Dark/charcoal background, orange + blue accents. */
+
+@layer base {
+  :root {
+    --background: 220 14% 6%;
+    --foreground: 30 15% 92%;
+
+    --card: 220 14% 9%;
+    --card-foreground: 30 15% 92%;
+
+    --popover: 220 14% 8%;
+    --popover-foreground: 30 15% 92%;
+
+    --primary: 22 96% 56%;            /* orange */
+    --primary-foreground: 220 14% 6%;
+
+    --secondary: 220 14% 12%;
+    --secondary-foreground: 30 15% 92%;
+
+    --muted: 220 12% 14%;
+    --muted-foreground: 220 8% 60%;
+
+    --accent: 205 95% 58%;            /* blue */
+    --accent-foreground: 220 14% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 12% 16%;
+    --input: 220 12% 16%;
+    --ring: 22 96% 56%;
+
+    --radius: 0.85rem;
+
+    --ocean-orange: 22 96% 56%;
+    --ocean-orange-glow: 14 95% 62%;
+    --ocean-blue: 205 95% 58%;
+    --ocean-blue-glow: 195 90% 55%;
+    --ocean-ink: 220 14% 5%;
+    --ocean-panel: 220 14% 9%;
+    --ocean-line: 220 12% 16%;
+
+    --sidebar-background: 220 14% 7%;
+    --sidebar-foreground: 30 15% 92%;
+    --sidebar-primary: 22 96% 56%;
+    --sidebar-primary-foreground: 220 14% 6%;
+    --sidebar-accent: 220 12% 12%;
+    --sidebar-accent-foreground: 30 15% 92%;
+    --sidebar-border: 220 12% 16%;
+    --sidebar-ring: 22 96% 56%;
+  }
+
+  .dark { color-scheme: dark; }
+
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(60rem 40rem at 80% -10%, hsl(var(--ocean-orange) / 0.10), transparent 60%),
+      radial-gradient(50rem 35rem at -10% 110%, hsl(var(--ocean-blue) / 0.10), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection { background: hsl(var(--ocean-orange) / 0.35); color: hsl(var(--foreground)); }
+
+  /* Hide native cursor on devices with hover (gooey custom cursor takes over) */
+  @media (hover: hover) and (pointer: fine) {
+    body, button, a, [role="button"] { cursor: none; }
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl bg-ocean-panel/80 backdrop-blur-sm border border-ocean-line shadow-panel;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-ocean-line bg-ocean-panel/70 px-2.5 py-1 text-xs font-medium text-muted-foreground;
+  }
+  .heading-display { @apply font-display tracking-tight; }
+  .num-mono { @apply font-mono tabular-nums; }
+  .grid-faint-bg {
+    background-size: 32px 32px;
+    background-image:
+      linear-gradient(hsl(var(--ocean-line) / .5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--ocean-line) / .5) 1px, transparent 1px);
+  }
+}
+
+/* === Gooey ink cursor === */
+.GooeyCursor {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  filter: url("#gooey-cursor-filter");
+}
+.GooeyCursor span {
+  position: absolute;
+  display: block;
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+.GooeyCursor span.lead { width: 28px; height: 28px; }
+
+/* === Wavy menu underline === */
+.wavy-menu li { transition: background-position-x 0.9s linear; }
+.wavy-menu li:hover {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='390' height='50' viewBox='0 0 390 50'><path fill='none' stroke='%23f97316' stroke-width='1.6' stroke-linecap='round' d='M0,42 C 65,42 95,8 130,42 C 165,76 195,8 260,42 C 295,76 325,8 390,42'/></svg>");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  animation: wave-line 1s linear;
+}
+.wavy-menu li.active {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='390' height='50' viewBox='0 0 390 50'><path fill='none' stroke='%2338bdf8' stroke-width='1.6' stroke-linecap='round' d='M0,42 C 65,42 95,8 130,42 C 165,76 195,8 260,42 C 295,76 325,8 390,42'/></svg>");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+
+/* === Cube hover (button accents) === */
+.cube-tile {
+  position: relative;
+  display: inline-block;
+  width: 14px; height: 14px;
+  background: hsl(var(--ocean-line));
+  transition: 1s ease;
+}
+.cube-tile::before, .cube-tile::after {
+  content: ""; position: absolute; transition: 1s ease;
+}
+.cube-tile::before {
+  left: -8px; top: 0; width: 8px; height: 100%;
+  background: hsl(var(--ocean-line) / .8);
+  transform-origin: right; transform: skewY(45deg);
+}
+.cube-tile::after {
+  top: -8px; left: 0; width: 100%; height: 8px;
+  background: hsl(var(--ocean-line) / .9);
+  transform-origin: bottom; transform: skewX(45deg);
+}
+.cube-host:hover .cube-tile { transition: 0s; background: hsl(var(--ocean-orange)); filter: drop-shadow(0 0 16px hsl(var(--ocean-orange) / .9)); }
+.cube-host:hover .cube-tile::before, .cube-host:hover .cube-tile::after { transition: 0s; background: hsl(var(--ocean-orange)); }
+
+/* Recharts theming */
+.recharts-cartesian-axis-tick-value { fill: hsl(var(--muted-foreground)); font-size: 11px; }
+.recharts-cartesian-grid line { stroke: hsl(var(--ocean-line)); }
+.recharts-tooltip-wrapper:focus { outline: none; }
